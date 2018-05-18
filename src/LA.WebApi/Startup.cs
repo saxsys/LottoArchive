@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LA.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
-namespace LottoArchive
+namespace LA.WebApi
 {
     public class Startup
     {
@@ -24,6 +19,7 @@ namespace LottoArchive
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddLAServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +30,10 @@ namespace LottoArchive
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Index}/{action=Get}");
+            });
         }
     }
 }
