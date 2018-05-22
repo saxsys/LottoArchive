@@ -32,7 +32,7 @@ namespace LA.WebApi
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller=Index}/{action=Get}");
+                routes.MapRoute("default", "{controller=IndexGet}/{action=Get}");
             });
         }
     }

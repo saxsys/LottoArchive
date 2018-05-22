@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LA.WebApi.Controllers
 {
-    public class IndexController : ControllerBase
+    public class IndexGetController : ControllerBase
     {
         public IActionResult Get()
         {
-            var links = new LinkedList<Link>();
-            links.AddLast(new Link(Link.RelForSelf, "/"));
+            var links = new[]
+            {
+                new Link(Link.RelForSelf, "/"),
+                new Link("values", "/values{?from,to}")
+            };
 
             return this.HAL(new HALResponse(null).AddLinks(links));
         }

@@ -4,6 +4,6 @@ namespace LA.Services
 {
     public interface INumberProvider
     {
-        int[] GetNumbers(DateRange dateRange);
+        WinningNumbers[] GetNumbers(DateRange dateRange);
     }
 }
