@@ -6,7 +6,7 @@ namespace LA.Services
     {
         public static IServiceCollection AddLAServices(this IServiceCollection service)
         {
-            service.AddScoped<INumberProvider, NumberProviderMock>();
+            service.AddScoped<IDrawingProvider, DrawingProviderMock>();
 
             return service;
         }

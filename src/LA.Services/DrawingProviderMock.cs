@@ -4,7 +4,7 @@ using LA.Domain;
 
 namespace LA.Services
 {
-    public class NumberProviderMock : INumberProvider
+    public class DrawingProviderMock : IDrawingProvider
     {
         public Drawing[] GetNumbers(DateRange dateRange)
         {

@@ -2,7 +2,7 @@
 
 namespace LA.Services
 {
-    public interface INumberProvider
+    public interface IDrawingProvider
     {
         Drawing[] GetNumbers(DateRange dateRange);
     }

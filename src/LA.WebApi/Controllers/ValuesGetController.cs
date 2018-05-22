@@ -11,18 +11,18 @@ namespace LA.WebApi.Controllers
     [Route("[controller]")]
     public class ValuesGetController : ControllerBase
     {
-        private readonly INumberProvider numberProvider;
+        private readonly IDrawingProvider drawingProvider;
 
-        public ValuesGetController(INumberProvider numberProvider)
+        public ValuesGetController(IDrawingProvider drawingProvider)
         {
-            this.numberProvider = numberProvider;
+            this.drawingProvider = drawingProvider;
         }
 
         [HttpGet("/values")]
         public IActionResult Get(DateTime from, DateTime to)
         {
             var dateRange = new DateRange(@from, to);
-            var numbers = this.numberProvider.GetNumbers(dateRange);
+            var numbers = this.drawingProvider.GetNumbers(dateRange);
             if (!numbers.Any())
             {
                 return this.NotFound();
