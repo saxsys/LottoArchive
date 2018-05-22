@@ -41,9 +41,4 @@ namespace LA.WebApi.Controllers
             return this.HAL(new HALResponse(model).AddLinks(links));
         }
     }
-
-    public class ValueRepresentation
-    {
-        public Drawing[] Values { get; set; }
-    }
 }
