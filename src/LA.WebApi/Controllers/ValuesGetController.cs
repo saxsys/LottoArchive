@@ -44,6 +44,6 @@ namespace LA.WebApi.Controllers
 
     public class ValueRepresentation
     {
-        public WinningNumbers[] Values { get; set; }
+        public Drawing[] Values { get; set; }
     }
 }
