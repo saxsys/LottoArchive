@@ -18,4 +18,10 @@
     <ProjectReference Include="..\LA.Domain\LA.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="data\numbers.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

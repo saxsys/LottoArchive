@@ -1,4 +1,5 @@
-﻿using LA.Services;
+﻿using System.IO;
+using LA.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +11,7 @@ namespace LA.WebApi
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -19,7 +20,10 @@ namespace LA.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddLAServices();
+            services.AddScoped<IDrawingProvider, DrawingProviderMock>();
+
+            var fileStream = new FileStream("data/numbers.csv", FileMode.Open);
+            services.AddSingleton<Stream>(fileStream);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +33,13 @@ namespace LA.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+                builder.AllowAnyOrigin();
+            });
 
             app.UseMvc(routes =>
             {
