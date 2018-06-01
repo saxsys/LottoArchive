@@ -20,7 +20,7 @@ namespace LA.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddScoped<IDrawingProvider, DrawingProviderMock>();
+            services.AddScoped<IDrawingProvider, DrawingProvider>();
 
             var fileStream = new FileStream("data/numbers.csv", FileMode.Open);
             services.AddSingleton<Stream>(fileStream);
@@ -39,6 +39,7 @@ namespace LA.WebApi
                 builder.AllowAnyHeader();
                 builder.AllowAnyMethod();
                 builder.AllowAnyOrigin();
+                builder.AllowCredentials();
             });
 
             app.UseMvc(routes =>

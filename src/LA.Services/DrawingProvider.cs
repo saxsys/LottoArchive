@@ -11,7 +11,6 @@ namespace LA.Services
         private Stream stream;
         private Drawing[] drawings;
 
-
         public DrawingProvider(Stream stream)
         {
             this.stream = stream;
@@ -19,6 +18,7 @@ namespace LA.Services
 
         private static IEnumerable<string> GetDataSets(Stream stream)
         {
+            stream.Position = 0;
             var streamReader = new StreamReader(stream);
             var content = streamReader.ReadToEnd();
 
