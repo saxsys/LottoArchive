@@ -1,20 +1,22 @@
-﻿using System;
-using System.Net.Http;
-using System.Runtime.Serialization.Json;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LA.ConsoleClient
 {
     class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var services = new ServiceCollection();
             services.AddScoped<HttpClient>();
-            services.AddSingleton(new DataContractJsonSerializer(typeof(ValueRepresentation)));
             services.AddScoped<IRepository, Repository>();
+            services.AddSingleton<UserInteraction>();
 
-            Console.ReadKey();
+            var serviceProvider = services.BuildServiceProvider();
+            var userInteraction = serviceProvider.GetService<UserInteraction>();
+
+            await userInteraction.Run();
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using LA.Domain;
 
 namespace LA.ConsoleClient
 {
     public interface IRepository
     {
-        Task<Drawing[]> Values(DateRange dateRange);
+        Task<List<DrawingAttribute>> Values(DateRange dateRange);
     }
 }

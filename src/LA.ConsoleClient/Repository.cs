@@ -1,8 +1,9 @@
-﻿using LA.Domain;
+﻿using System.Collections.Generic;
+using LA.Domain;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace LA.ConsoleClient
 {
@@ -10,14 +11,11 @@ namespace LA.ConsoleClient
     {
         private readonly HttpClient httpClient;
 
-        private readonly DataContractJsonSerializer serializer;
-
         private const string RemoteUrl = "http://lawebapi.azurewebsites.net/";
 
-        public Repository(HttpClient httpClient, DataContractJsonSerializer serializer)
+        public Repository(HttpClient httpClient)
         {
             this.httpClient = httpClient;
-            this.serializer = serializer;
 
             this.httpClient.DefaultRequestHeaders.Accept.Clear();
             this.httpClient.DefaultRequestHeaders.Accept.Add(
@@ -25,16 +23,16 @@ namespace LA.ConsoleClient
             this.httpClient.DefaultRequestHeaders.Add("User-Agent", "Lotto Archive Console Client");
         }
 
-        public async Task<Drawing[]> Values(DateRange dateRange)
+        public async Task<List<DrawingAttribute>> Values(DateRange dateRange)
         {
             const string dateFormat = "yyyy-MM-dd";
             var from = dateRange.From.ToString(dateFormat);
             var to = dateRange.To.ToString(dateFormat);
 
-            var httpResult = await this.httpClient.GetStreamAsync($"{RemoteUrl}/values?from={from}&to={to}");
-            var value = this.serializer.ReadObject(httpResult) as ValueRepresentation;
+            var httpResult = await this.httpClient.GetStringAsync($"{RemoteUrl}/values?from={from}&to={to}");
+            var value = JsonConvert.DeserializeObject<ValuesAttribute>(httpResult);
 
-            return value == null ? new Drawing[0] : value.Values;
+            return value == null ? new List<DrawingAttribute>() : value.Values;
         }
     }
 }
