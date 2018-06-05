@@ -6,6 +6,6 @@ namespace LA.ConsoleClient
 {
     public interface IRepository
     {
-        Task<List<DrawingAttribute>> Values(DateRange dateRange);
+        Task<List<Drawing>> GetDrawings(DateRange dateRange);
     }
 }

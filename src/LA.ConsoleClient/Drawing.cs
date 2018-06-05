@@ -2,7 +2,7 @@
 
 namespace LA.ConsoleClient
 {
-    public class DrawingAttribute
+    public class Drawing
     {
         public DateTime DateTime { get; set;  }
 

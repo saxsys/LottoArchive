@@ -19,7 +19,7 @@ namespace LA.ConsoleClient
             var from = new DateTime(2016, 1, 1);
             var to   = new DateTime(2018, 1, 1);
             var range = new DateRange(from, to);
-            var values = await this.repository.Values(range);
+            var values = await this.repository.GetDrawings(range);
 
             foreach (var value in values)
             {

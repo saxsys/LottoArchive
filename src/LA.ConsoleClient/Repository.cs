@@ -23,16 +23,16 @@ namespace LA.ConsoleClient
             this.httpClient.DefaultRequestHeaders.Add("User-Agent", "Lotto Archive Console Client");
         }
 
-        public async Task<List<DrawingAttribute>> Values(DateRange dateRange)
+        public async Task<List<Drawing>> GetDrawings(DateRange dateRange)
         {
             const string dateFormat = "yyyy-MM-dd";
             var from = dateRange.From.ToString(dateFormat);
             var to = dateRange.To.ToString(dateFormat);
 
             var httpResult = await this.httpClient.GetStringAsync($"{RemoteUrl}/values?from={from}&to={to}");
-            var value = JsonConvert.DeserializeObject<ValuesAttribute>(httpResult);
+            var value = JsonConvert.DeserializeObject<ValuesRepresentation>(httpResult);
 
-            return value == null ? new List<DrawingAttribute>() : value.Values;
+            return value == null ? new List<Drawing>() : value.Values;
         }
     }
 }
